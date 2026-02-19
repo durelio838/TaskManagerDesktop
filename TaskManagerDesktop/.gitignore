@@ -1,0 +1,32 @@
+﻿## Visual Studio / .NET / WPF
+
+# пользовательские файлы VS
+.vs/
+*.user
+*.suo
+
+# сборки
+bin/
+obj/
+
+# логи, временные файлы
+*.log
+*.tmp
+*.cache
+*.dbmdl
+
+# тестовые результаты
+TestResult*/
+*.VisualState.xml
+
+# пакеты
+packages/
+*.nupkg
+
+# настройки IDE
+*.DotSettings
+*.csproj.user
+
+# публикация
+[Bb]uild/
+[Pp]ublish/

@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+*.DotSettings
+
+# NuGet
+packages/
+*.nupkg
+
+# Логи
+*.log
