@@ -1,0 +1,58 @@
+-- Создание базы данных
+CREATE DATABASE TaskManagerDB;
+GO
+
+USE TaskManagerDB;
+GO
+
+-- Таблица Priorities
+CREATE TABLE Priorities (
+    PriorityId INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(50) NOT NULL,
+    Level INT NOT NULL,
+    Color NVARCHAR(20) NOT NULL
+);
+
+-- Таблица Categories
+CREATE TABLE Categories (
+    CategoryId INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Icon NVARCHAR(10)
+);
+
+-- Таблица Tasks
+CREATE TABLE Tasks (
+    TaskId INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(MAX),
+    PriorityId INT NOT NULL,
+    CategoryId INT NOT NULL,
+    DueDate DATETIME NOT NULL,
+    IsCompleted BIT NOT NULL DEFAULT 0,
+    CreatedDate DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (PriorityId) REFERENCES Priorities(PriorityId),
+    FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId)
+);
+
+-- Заполнение Priorities
+INSERT INTO Priorities (Name, Level, Color) VALUES 
+    (N'Критический', 1, '#D32F2F'),
+    (N'Высокий', 2, '#F57C00'),
+    (N'Средний', 3, '#FBC02D'),
+    (N'Низкий', 4, '#388E3C');
+
+-- Заполнение Categories
+INSERT INTO Categories (Name, Icon) VALUES 
+    (N'Работа', N'💼'),
+    (N'Личное', N'🏠'),
+    (N'Учеба', N'📚'),
+    (N'Здоровье', N'🏥'),
+    (N'Финансы', N'💰'),
+    (N'Семья', N'👨‍👩‍👧‍👦'),
+    (N'Отдых', N'🎮');
+
+-- Тестовые данные для Tasks
+INSERT INTO Tasks (Title, Description, PriorityId, CategoryId, DueDate, IsCompleted, CreatedDate) VALUES 
+    (N'Завершить проект', N'Доделать WPF приложение TaskManager', 1, 1, DATEADD(DAY, 3, GETDATE()), 0, DATEADD(DAY, -5, GETDATE())),
+    (N'Сдать отчет', N'Квартальный отчет по продажам', 1, 1, DATEADD(DAY, -1, GETDATE()), 0, DATEADD(DAY, -10, GETDATE())),
+    (N'Купить продукты', N'Молоко, хлеб, яйца', 2, 2, DATEADD(DAY, 1, GETDATE()), 0, DATEADD(DAY, -2, GETDATE()));
